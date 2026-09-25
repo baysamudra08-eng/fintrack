@@ -169,8 +169,7 @@ erDiagram
 
 ## 6. Design System (Figma)
 
-**Link Figma (publik):** `[tempel link Figma, pastikan akses "Anyone with the link can view"]`
-
+**Link Figma (publik):** https://www.figma.com/design/nWDNnShLI7Iqb5MRbURP0w/Untitled?node-id=0-1&t=qbt8SmeNxL77k1ky-1
 ### 6.1 Color Palette
 
 | Peran | Nama | HEX |
