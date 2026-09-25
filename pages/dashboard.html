@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — FinTrack</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <div class="app-shell" id="appShell">
+
+    <!-- ============ SIDEBAR ============ -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <span class="logo-dot">💠</span>
+        <span>FinTrack</span>
+      </div>
+
+      <nav>
+        <div class="nav-item active" data-page="dashboard.html">
+          <span class="icon">📊</span><span>Dashboard</span>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-group-label">TRANSAKSI</div>
+          <div class="nav-sub">
+            <div class="nav-item" data-page="data-master.html"><span>Semua Transaksi</span></div>
+            <div class="nav-item" data-page="form.html"><span>Tambah Pemasukan</span></div>
+            <div class="nav-item" data-page="form.html"><span>Tambah Pengeluaran</span></div>
+            <div class="nav-item"><span>Transfer Antar Akun</span></div>
+          </div>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-group-label">DATA MASTER</div>
+          <div class="nav-sub">
+            <div class="nav-item" data-page="data-master.html"><span>Akun / Rekening</span></div>
+            <div class="nav-item"><span>Kategori</span></div>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <span class="icon">🎯</span><span>Anggaran (Budget)</span>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-group-label">LAPORAN</div>
+          <div class="nav-sub">
+            <div class="nav-item" data-page="laporan.html"><span>Ringkasan Bulanan</span></div>
+            <div class="nav-item"><span>Arus Kas</span></div>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <span class="icon">⚙️</span><span>Pengaturan</span>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- ============ HEADER ============ -->
+    <header class="header">
+      <div class="header-left">
+        <button class="btn-icon" id="sidebarToggle" aria-label="Toggle sidebar">☰</button>
+        <div class="search-box">
+          <span>🔍</span>
+          <input type="text" placeholder="Cari transaksi, rekening, atau kontak...">
+        </div>
+      </div>
+      <div class="header-right">
+        <button class="btn-icon" aria-label="Notifikasi">🔔</button>
+        <div class="user-chip">
+          <div class="avatar">BP</div>
+          <div class="user-chip-info">
+            <div class="user-chip-name">Budi Pratama</div>
+            <div class="user-chip-role">Finance Manager</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ============ MAIN CONTENT ============ -->
+    <main class="main">
+      <div class="breadcrumb"><a href="#">Beranda</a> &rsaquo; Dashboard</div>
+      <h1 class="page-title">Dashboard</h1>
+      <p class="page-subtitle">Ringkasan kondisi keuangan bulan September 2026.</p>
+
+      <!-- KPI Cards -->
+      <div class="kpi-grid">
+        <div class="card kpi-card">
+          <div class="kpi-label">Total Saldo</div>
+          <div class="kpi-value" id="kpiTotalSaldo">Rp 0</div>
+          <span class="kpi-trend up">↑ Gabungan seluruh akun</span>
+        </div>
+        <div class="card kpi-card">
+          <div class="kpi-label">Pemasukan Bulan Ini</div>
+          <div class="kpi-value" id="kpiPemasukan">Rp 0</div>
+          <span class="kpi-trend up">↑ 12,7% vs bulan lalu</span>
+        </div>
+        <div class="card kpi-card">
+          <div class="kpi-label">Pengeluaran Bulan Ini</div>
+          <div class="kpi-value" id="kpiPengeluaran">Rp 0</div>
+          <span class="kpi-trend down">↓ 4,2% vs bulan lalu</span>
+        </div>
+        <div class="card kpi-card">
+          <div class="kpi-label">Selisih Bersih (Net)</div>
+          <div class="kpi-value" id="kpiSelisih">Rp 0</div>
+          <span class="kpi-trend up">Surplus bulan ini</span>
+        </div>
+      </div>
+
+      <!-- Chart + Kategori -->
+      <div class="grid-2">
+        <div class="card">
+          <h3 style="font-size:var(--fs-h3); margin-bottom:12px;">Pemasukan vs Pengeluaran per Minggu</h3>
+          <canvas id="chartWeekly" height="110"></canvas>
+        </div>
+        <div class="card">
+          <h3 style="font-size:var(--fs-h3); margin-bottom:12px;">Realisasi Anggaran per Kategori</h3>
+          <div id="budgetList"></div>
+        </div>
+      </div>
+
+      <!-- Tabel transaksi terbaru -->
+      <div class="card">
+        <div class="toolbar">
+          <h3 style="font-size:var(--fs-h3);">Transaksi Terbaru</h3>
+          <a href="data-master.html" class="btn btn-ghost">Lihat Semua &rsaquo;</a>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Tanggal</th>
+                <th>Keterangan</th>
+                <th>Kategori</th>
+                <th>Akun</th>
+                <th style="text-align:right;">Jumlah</th>
+              </tr>
+            </thead>
+            <tbody id="recentTransactionsBody"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+      &copy; 2026 FinTrack Indonesia. Hak Cipta Dilindungi. &middot; Bantuan &middot; Privasi &middot; Syarat &amp; Ketentuan
+    </footer>
+
+  </div>
+
+  <script src="../assets/js/mock-data.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    // ---- Isi angka KPI ----
+    document.getElementById('kpiTotalSaldo').textContent = formatRupiah(MOCK_SUMMARY.totalSaldo);
+    document.getElementById('kpiPemasukan').textContent = formatRupiah(MOCK_SUMMARY.pemasukanBulanIni);
+    document.getElementById('kpiPengeluaran').textContent = formatRupiah(MOCK_SUMMARY.pengeluaranBulanIni);
+    document.getElementById('kpiSelisih').textContent = formatRupiah(MOCK_SUMMARY.selisihBersih);
+
+    // ---- Render budget list dengan badge status ----
+    const budgetListEl = document.getElementById('budgetList');
+    const statusMap = {
+      aman: { label: 'Aman', cls: 'badge-safe' },
+      waspada: { label: 'Waspada', cls: 'badge-warn' },
+      melebihi: { label: 'Melebihi', cls: 'badge-over' },
+    };
+    MOCK_BUDGETS.forEach(b => {
+      const st = statusMap[b.status];
+      const row = document.createElement('div');
+      row.style.cssText = 'margin-bottom:14px;';
+      row.innerHTML = `
+        <div style="display:flex; justify-content:space-between; margin-bottom:4px; font-size:13px;">
+          <span>${b.category}</span>
+          <span class="badge ${st.cls}">${st.label}</span>
+        </div>
+        <div style="background:var(--color-border); border-radius:6px; height:8px; overflow:hidden;">
+          <div style="width:${Math.min(b.percent,100)}%; height:100%; background:${b.status === 'melebihi' ? 'var(--color-danger)' : b.status === 'waspada' ? 'var(--color-warning)' : 'var(--color-success)'};"></div>
+        </div>
+        <div style="font-size:12px; color:var(--color-text-muted); margin-top:4px;">
+          ${formatRupiah(b.total)} dari ${formatRupiah(b.budget)} (${b.percent}%)
+        </div>`;
+      budgetListEl.appendChild(row);
+    });
+
+    // ---- Render tabel transaksi terbaru ----
+    const tbody = document.getElementById('recentTransactionsBody');
+    const typeBadge = { pemasukan: 'badge-income', pengeluaran: 'badge-expense', transfer: 'badge-transfer' };
+    MOCK_TRANSACTIONS.forEach(tx => {
+      const tr = document.createElement('tr');
+      const sign = tx.type === 'pengeluaran' ? '-' : '+';
+      const color = tx.type === 'pengeluaran' ? 'var(--color-danger)' : 'var(--color-success)';
+      tr.innerHTML = `
+        <td>${formatTanggal(tx.date)}</td>
+        <td>${tx.desc}</td>
+        <td><span class="badge ${typeBadge[tx.type]}">${tx.category}</span></td>
+        <td>${tx.account}</td>
+        <td style="text-align:right; color:${color}; font-weight:600;">${sign} ${formatRupiah(tx.amount)}</td>`;
+      tbody.appendChild(tr);
+    });
+
+    // ---- Chart.js: Pemasukan vs Pengeluaran per minggu ----
+    new Chart(document.getElementById('chartWeekly'), {
+      type: 'bar',
+      data: {
+        labels: MOCK_WEEKLY.labels,
+        datasets: [
+          { label: 'Pemasukan', data: MOCK_WEEKLY.pemasukan, backgroundColor: '#16A34A', borderRadius: 4 },
+          { label: 'Pengeluaran', data: MOCK_WEEKLY.pengeluaran, backgroundColor: '#DC2626', borderRadius: 4 },
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { position: 'bottom' } },
+        scales: {
+          y: { ticks: { callback: v => 'Rp ' + (v / 1000000) + 'jt' } },
+        },
+      },
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tambah Transaksi — FinTrack</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+
+  <div class="app-shell" id="appShell">
+
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand"><span class="logo-dot">💠</span><span>FinTrack</span></div>
+      <nav>
+        <div class="nav-item" data-page="dashboard.html"><span class="icon">📊</span><span>Dashboard</span></div>
+        <div class="nav-group">
+          <div class="nav-group-label">TRANSAKSI</div>
+          <div class="nav-sub">
+            <div class="nav-item" data-page="data-master.html"><span>Semua Transaksi</span></div>
+            <div class="nav-item active" data-page="form.html"><span>Tambah Pemasukan</span></div>
+            <div class="nav-item" data-page="form.html"><span>Tambah Pengeluaran</span></div>
+            <div class="nav-item"><span>Transfer Antar Akun</span></div>
+          </div>
+        </div>
+        <div class="nav-group">
+          <div class="nav-group-label">DATA MASTER</div>
+          <div class="nav-sub">
+            <div class="nav-item"><span>Akun / Rekening</span></div>
+            <div class="nav-item"><span>Kategori</span></div>
+          </div>
+        </div>
+        <div class="nav-item"><span class="icon">🎯</span><span>Anggaran (Budget)</span></div>
+        <div class="nav-group">
+          <div class="nav-group-label">LAPORAN</div>
+          <div class="nav-sub">
+            <div class="nav-item" data-page="laporan.html"><span>Ringkasan Bulanan</span></div>
+            <div class="nav-item"><span>Arus Kas</span></div>
+          </div>
+        </div>
+        <div class="nav-item"><span class="icon">⚙️</span><span>Pengaturan</span></div>
+      </nav>
+    </aside>
+
+    <header class="header">
+      <div class="header-left">
+        <button class="btn-icon" id="sidebarToggle" aria-label="Toggle sidebar">☰</button>
+        <div class="search-box"><span>🔍</span><input type="text" placeholder="Cari transaksi, rekening, atau kontak..."></div>
+      </div>
+      <div class="header-right">
+        <button class="btn-icon" aria-label="Notifikasi">🔔</button>
+        <div class="user-chip">
+          <div class="avatar">BP</div>
+          <div class="user-chip-info"><div class="user-chip-name">Budi Pratama</div><div class="user-chip-role">Finance Manager</div></div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="breadcrumb"><a href="dashboard.html">Beranda</a> &rsaquo; Transaksi &rsaquo; Tambah Transaksi</div>
+      <h1 class="page-title">Tambah Transaksi Baru</h1>
+      <p class="page-subtitle">Catat pengeluaran atau pemasukan kas dengan verifikasi bukti transaksi secara otomatis.</p>
+
+      <div id="alertSuccess" class="card" style="display:none; margin-bottom:16px; border-color:var(--color-success); background:#F0FDF4;">
+        <strong style="color:var(--color-success);">✓ Transaksi berhasil disimpan</strong>
+        <p style="margin-top:4px; color:var(--color-text-muted); font-size:13px;">Transaksi telah tercatat dan anggaran otomatis diperbarui.</p>
+      </div>
+
+      <form class="card" id="transactionForm" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Tanggal Transaksi <span class="required">*</span></label>
+            <input type="date" class="form-control" name="tanggal" required>
+            <div class="form-error" style="display:none;">Tanggal wajib diisi.</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Akun Sumber Dana <span class="required">*</span></label>
+            <select class="form-control" name="akun" required>
+              <option value="">Pilih akun...</option>
+              <option>BCA - Giro Operasional (Saldo: Rp 52.800.000)</option>
+              <option>Kas Tunai (Saldo: Rp 4.750.000)</option>
+              <option>Mandiri - Giro Payroll (Saldo: Rp 26.450.000)</option>
+            </select>
+            <div class="form-error" style="display:none;">Akun wajib dipilih.</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">Kategori Pengeluaran <span class="required">*</span></label>
+            <select class="form-control" name="kategori" required>
+              <option value="">Pilih kategori...</option>
+              <option>Operasional & Bahan Baku</option>
+              <option>Transportasi</option>
+              <option>Perpajakan</option>
+              <option>Hiburan & Relasi</option>
+            </select>
+            <div class="form-error" style="display:none;">Kategori wajib dipilih.</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Jumlah Pengeluaran <span class="required">*</span></label>
+            <input type="number" class="form-control" name="jumlah" placeholder="0" min="1" required>
+            <div class="form-hint">
+              <button type="button" class="btn btn-secondary" style="padding:4px 10px; font-size:12px;" onclick="setAmount(50000)">+ Rp 50.000</button>
+              <button type="button" class="btn btn-secondary" style="padding:4px 10px; font-size:12px;" onclick="setAmount(100000)">+ Rp 100.000</button>
+              <button type="button" class="btn btn-secondary" style="padding:4px 10px; font-size:12px;" onclick="setAmount(500000)">+ Rp 500.000</button>
+            </div>
+            <div class="form-error" style="display:none;">Jumlah wajib diisi dan lebih dari 0.</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Keterangan / Deskripsi Pengeluaran</label>
+          <textarea class="form-control" name="deskripsi" rows="3" maxlength="200" placeholder="Contoh: Pembelian bahan baku dapur untuk stok cabang Sudirman"></textarea>
+          <div class="form-hint">0/200 karakter</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Bukti / Lampiran Struk (Opsional)</label>
+          <div style="border:2px dashed var(--color-border); border-radius:8px; padding:24px; text-align:center; color:var(--color-text-muted); font-size:13px;">
+            📎 Seret &amp; lepas foto struk/nota di sini atau <a href="#" style="color:var(--color-accent); font-weight:600;">klik Pilih Berkas</a>
+            <div style="margin-top:4px; font-size:12px;">Format JPG, PNG, atau PDF (Maks. 5 MB)</div>
+          </div>
+        </div>
+
+        <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:8px;">
+          <button type="button" class="btn btn-secondary" onclick="window.location.href='data-master.html'">Batal</button>
+          <button type="submit" class="btn btn-primary">Simpan Transaksi</button>
+        </div>
+      </form>
+    </main>
+
+    <footer class="footer">&copy; 2026 FinTrack Indonesia. Hak Cipta Dilindungi.</footer>
+  </div>
+
+  <script src="../assets/js/main.js"></script>
+  <script>
+    function setAmount(val) {
+      const field = document.querySelector('[name="jumlah"]');
+      field.value = (parseInt(field.value) || 0) + val;
+    }
+
+    document.getElementById('transactionForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (validateRequired(this)) {
+        document.getElementById('alertSuccess').style.display = 'block';
+        this.reset();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    });
+  </script>
+</body>
+</html>

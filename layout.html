@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinTrack — Admin Panel Dashboard Keuangan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+  <div class="app-shell" id="appShell">
+
+    <!-- ============ SIDEBAR ============ -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand">
+        <span class="logo-dot">💠</span>
+        <span>FinTrack</span>
+      </div>
+
+      <nav>
+        <div class="nav-item active">
+          <span class="icon">📊</span><span>Dashboard</span>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-group-label">TRANSAKSI</div>
+          <div class="nav-sub">
+            <div class="nav-item"><span>Semua Transaksi</span></div>
+            <div class="nav-item"><span>Tambah Pemasukan</span></div>
+            <div class="nav-item"><span>Tambah Pengeluaran</span></div>
+            <div class="nav-item"><span>Transfer Antar Akun</span></div>
+          </div>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-group-label">DATA MASTER</div>
+          <div class="nav-sub">
+            <div class="nav-item"><span>Akun / Rekening</span></div>
+            <div class="nav-item"><span>Kategori</span></div>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <span class="icon">🎯</span><span>Anggaran (Budget)</span>
+        </div>
+
+        <div class="nav-group">
+          <div class="nav-group-label">LAPORAN</div>
+          <div class="nav-sub">
+            <div class="nav-item"><span>Ringkasan Bulanan</span></div>
+            <div class="nav-item"><span>Arus Kas</span></div>
+          </div>
+        </div>
+
+        <div class="nav-item">
+          <span class="icon">⚙️</span><span>Pengaturan</span>
+        </div>
+      </nav>
+    </aside>
+
+    <!-- ============ HEADER ============ -->
+    <header class="header">
+      <div class="header-left">
+        <button class="btn-icon" id="sidebarToggle" aria-label="Toggle sidebar">☰</button>
+        <div class="search-box">
+          <span>🔍</span>
+          <input type="text" placeholder="Cari transaksi, rekening, atau kontak...">
+        </div>
+      </div>
+      <div class="header-right">
+        <button class="btn-icon" aria-label="Notifikasi">🔔</button>
+        <div class="user-chip">
+          <div class="avatar">BP</div>
+          <div class="user-chip-info">
+            <div class="user-chip-name">Budi Pratama</div>
+            <div class="user-chip-role">Finance Manager</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ============ MAIN CONTENT ============ -->
+    <main class="main">
+      <div class="breadcrumb"><a href="#">Beranda</a> &rsaquo; Halaman</div>
+      <h1 class="page-title">Judul Halaman</h1>
+      <p class="page-subtitle">Konten halaman spesifik ditempatkan di sini. File ini adalah template master — duplikasi ke pages/ untuk tiap halaman.</p>
+
+      <div class="card">
+        <p>Ganti isi &lt;main&gt; ini dengan konten tiap halaman (Dashboard, Data Master, Form, Laporan).</p>
+      </div>
+    </main>
+
+    <!-- ============ FOOTER ============ -->
+    <footer class="footer">
+      &copy; 2026 FinTrack Indonesia. Hak Cipta Dilindungi. &middot; Bantuan &middot; Privasi &middot; Syarat &amp; Ketentuan
+    </footer>
+
+  </div>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ringkasan Bulanan — FinTrack</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+  <style>
+    .report-sheet {
+      background: #fff;
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 40px;
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+    }
+    @media print {
+      .sidebar, .header, .footer, .toolbar { display: none !important; }
+      .app-shell { display: block !important; }
+      .main { padding: 0 !important; }
+      .report-sheet { border: none; box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-shell" id="appShell">
+
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand"><span class="logo-dot">💠</span><span>FinTrack</span></div>
+      <nav>
+        <div class="nav-item" data-page="dashboard.html"><span class="icon">📊</span><span>Dashboard</span></div>
+        <div class="nav-group">
+          <div class="nav-group-label">TRANSAKSI</div>
+          <div class="nav-sub">
+            <div class="nav-item" data-page="data-master.html"><span>Semua Transaksi</span></div>
+            <div class="nav-item" data-page="form.html"><span>Tambah Pemasukan</span></div>
+            <div class="nav-item" data-page="form.html"><span>Tambah Pengeluaran</span></div>
+            <div class="nav-item"><span>Transfer Antar Akun</span></div>
+          </div>
+        </div>
+        <div class="nav-group">
+          <div class="nav-group-label">DATA MASTER</div>
+          <div class="nav-sub">
+            <div class="nav-item"><span>Akun / Rekening</span></div>
+            <div class="nav-item"><span>Kategori</span></div>
+          </div>
+        </div>
+        <div class="nav-item"><span class="icon">🎯</span><span>Anggaran (Budget)</span></div>
+        <div class="nav-group">
+          <div class="nav-group-label">LAPORAN</div>
+          <div class="nav-sub">
+            <div class="nav-item active" data-page="laporan.html"><span>Ringkasan Bulanan</span></div>
+            <div class="nav-item"><span>Arus Kas</span></div>
+          </div>
+        </div>
+        <div class="nav-item"><span class="icon">⚙️</span><span>Pengaturan</span></div>
+      </nav>
+    </aside>
+
+    <header class="header">
+      <div class="header-left">
+        <button class="btn-icon" id="sidebarToggle" aria-label="Toggle sidebar">☰</button>
+      </div>
+      <div class="header-right">
+        <div class="user-chip">
+          <div class="avatar">BP</div>
+          <div class="user-chip-info"><div class="user-chip-name">Budi Pratama</div><div class="user-chip-role">Finance Manager</div></div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="breadcrumb"><a href="dashboard.html">Beranda</a> &rsaquo; Laporan &rsaquo; Ringkasan Bulanan</div>
+      <h1 class="page-title">Ringkasan Bulanan</h1>
+      <p class="page-subtitle">Laporan keuangan bulanan yang dapat dicetak atau diunduh sebagai PDF.</p>
+
+      <div class="toolbar">
+        <div class="toolbar-actions">
+          <select class="form-control" style="max-width:180px;">
+            <option>September 2026</option>
+            <option>Agustus 2026</option>
+            <option>Juli 2026</option>
+          </select>
+        </div>
+        <div class="toolbar-actions">
+          <button class="btn btn-secondary" onclick="window.print()">🖨️ Cetak</button>
+          <button class="btn btn-primary">⬇️ Unduh PDF</button>
+        </div>
+      </div>
+
+      <div class="report-sheet">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; border-bottom:2px solid var(--color-primary); padding-bottom:16px; margin-bottom:24px;">
+          <div>
+            <h2 style="font-size:20px; font-weight:700; color:var(--color-primary);">FinTrack — Laporan Keuangan Bulanan</h2>
+            <p style="color:var(--color-text-muted); font-size:13px; margin-top:4px;">Periode: September 2026</p>
+          </div>
+          <div style="text-align:right; font-size:12px; color:var(--color-text-muted);">
+            Dicetak pada: <span id="printDate"></span>
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:28px;">
+          <div class="card" style="background:#F0FDF4; border-color:var(--color-success);">
+            <div class="kpi-label">Total Pemasukan</div>
+            <div class="kpi-value" style="color:var(--color-success);">Rp 32.500.000</div>
+          </div>
+          <div class="card" style="background:#FEF2F2; border-color:var(--color-danger);">
+            <div class="kpi-label">Total Pengeluaran</div>
+            <div class="kpi-value" style="color:var(--color-danger);">Rp 18.750.000</div>
+          </div>
+          <div class="card" style="background:#F0F9FF; border-color:var(--color-primary);">
+            <div class="kpi-label">Saldo Akhir</div>
+            <div class="kpi-value" style="color:var(--color-primary);">Rp 13.750.000</div>
+          </div>
+        </div>
+
+        <h3 style="font-size:var(--fs-h3); margin-bottom:12px;">1. Pemasukan vs Pengeluaran per Minggu</h3>
+        <canvas id="reportChart" height="90" style="margin-bottom:28px;"></canvas>
+
+        <h3 style="font-size:var(--fs-h3); margin-bottom:12px;">2. Rincian per Kategori</h3>
+        <div class="table-wrap" style="margin-bottom:28px;">
+          <table>
+            <thead>
+              <tr><th>Kategori</th><th style="text-align:right;">Total</th><th style="text-align:right;">Persentase</th><th style="text-align:right;">Anggaran</th><th>Status</th></tr>
+            </thead>
+            <tbody id="reportBudgetBody"></tbody>
+          </table>
+        </div>
+
+        <h3 style="font-size:var(--fs-h3); margin-bottom:12px;">3. Transaksi Terbesar Bulan Ini</h3>
+        <div class="table-wrap" style="margin-bottom:36px;">
+          <table>
+            <thead><tr><th>Tanggal</th><th>Keterangan</th><th>Kategori</th><th style="text-align:right;">Jumlah</th></tr></thead>
+            <tbody id="reportTopTxBody"></tbody>
+          </table>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-top:60px; text-align:center; font-size:13px;">
+          <div>
+            <div style="height:60px;"></div>
+            <div style="border-top:1px solid var(--color-text); padding-top:6px;">
+              <strong>Budi Pratama, S.E.</strong><br>
+              <span style="color:var(--color-text-muted);">Dibuat oleh — Finance &amp; Accounting Manager</span>
+            </div>
+          </div>
+          <div>
+            <div style="height:60px;"></div>
+            <div style="border-top:1px solid var(--color-text); padding-top:6px;">
+              <strong>Hendra Gunawan, M.B.A.</strong><br>
+              <span style="color:var(--color-text-muted);">Disetujui oleh — Direktur Keuangan / CFO</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">&copy; 2026 FinTrack Indonesia. Hak Cipta Dilindungi.</footer>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="../assets/js/mock-data.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    document.getElementById('printDate').textContent = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+
+    const statusMap = {
+      aman: { label: 'Aman', cls: 'badge-safe' },
+      waspada: { label: 'Waspada', cls: 'badge-warn' },
+      melebihi: { label: 'Melebihi', cls: 'badge-over' },
+    };
+    const bBody = document.getElementById('reportBudgetBody');
+    MOCK_BUDGETS.forEach(b => {
+      const st = statusMap[b.status];
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${b.category}</td><td style="text-align:right;">${formatRupiah(b.total)}</td><td style="text-align:right;">${b.percent}%</td><td style="text-align:right;">${formatRupiah(b.budget)}</td><td><span class="badge ${st.cls}">${st.label}</span></td>`;
+      bBody.appendChild(tr);
+    });
+
+    const topTx = [...MOCK_TRANSACTIONS].sort((a, b) => b.amount - a.amount);
+    const txBody = document.getElementById('reportTopTxBody');
+    topTx.forEach(tx => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${formatTanggal(tx.date)}</td><td>${tx.desc}</td><td>${tx.category}</td><td style="text-align:right;">${formatRupiah(tx.amount)}</td>`;
+      txBody.appendChild(tr);
+    });
+
+    new Chart(document.getElementById('reportChart'), {
+      type: 'bar',
+      data: {
+        labels: MOCK_WEEKLY.labels,
+        datasets: [
+          { label: 'Pemasukan', data: MOCK_WEEKLY.pemasukan, backgroundColor: '#16A34A', borderRadius: 4 },
+          { label: 'Pengeluaran', data: MOCK_WEEKLY.pengeluaran, backgroundColor: '#DC2626', borderRadius: 4 },
+        ],
+      },
+      options: { plugins: { legend: { position: 'bottom' } } },
+    });
+  </script>
+</body>
+</html>

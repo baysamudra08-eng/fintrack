@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Semua Transaksi — FinTrack</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+
+  <div class="app-shell" id="appShell">
+
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-brand"><span class="logo-dot">💠</span><span>FinTrack</span></div>
+      <nav>
+        <div class="nav-item" data-page="dashboard.html"><span class="icon">📊</span><span>Dashboard</span></div>
+        <div class="nav-group">
+          <div class="nav-group-label">TRANSAKSI</div>
+          <div class="nav-sub">
+            <div class="nav-item active" data-page="data-master.html"><span>Semua Transaksi</span></div>
+            <div class="nav-item" data-page="form.html"><span>Tambah Pemasukan</span></div>
+            <div class="nav-item" data-page="form.html"><span>Tambah Pengeluaran</span></div>
+            <div class="nav-item"><span>Transfer Antar Akun</span></div>
+          </div>
+        </div>
+        <div class="nav-group">
+          <div class="nav-group-label">DATA MASTER</div>
+          <div class="nav-sub">
+            <div class="nav-item"><span>Akun / Rekening</span></div>
+            <div class="nav-item"><span>Kategori</span></div>
+          </div>
+        </div>
+        <div class="nav-item"><span class="icon">🎯</span><span>Anggaran (Budget)</span></div>
+        <div class="nav-group">
+          <div class="nav-group-label">LAPORAN</div>
+          <div class="nav-sub">
+            <div class="nav-item" data-page="laporan.html"><span>Ringkasan Bulanan</span></div>
+            <div class="nav-item"><span>Arus Kas</span></div>
+          </div>
+        </div>
+        <div class="nav-item"><span class="icon">⚙️</span><span>Pengaturan</span></div>
+      </nav>
+    </aside>
+
+    <header class="header">
+      <div class="header-left">
+        <button class="btn-icon" id="sidebarToggle" aria-label="Toggle sidebar">☰</button>
+        <div class="search-box"><span>🔍</span><input type="text" id="searchInput" placeholder="Cari transaksi, rekening, atau kontak..."></div>
+      </div>
+      <div class="header-right">
+        <button class="btn-icon" aria-label="Notifikasi">🔔</button>
+        <div class="user-chip">
+          <div class="avatar">BP</div>
+          <div class="user-chip-info"><div class="user-chip-name">Budi Pratama</div><div class="user-chip-role">Finance Manager</div></div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="breadcrumb"><a href="dashboard.html">Beranda</a> &rsaquo; Transaksi &rsaquo; Semua Transaksi</div>
+      <h1 class="page-title">Semua Transaksi</h1>
+      <p class="page-subtitle">Kelola, pantau, dan filter seluruh catatan arus kas masuk dan keluar.</p>
+
+      <div class="toolbar">
+        <div class="toolbar-actions">
+          <button class="btn btn-secondary">📤 Ekspor Data</button>
+          <button class="btn btn-secondary">📥 Impor CSV</button>
+        </div>
+        <a href="form.html" class="btn btn-primary">+ Tambah Transaksi</a>
+      </div>
+
+      <div class="kpi-grid" style="grid-template-columns: repeat(3, 1fr);">
+        <div class="card kpi-card"><div class="kpi-label">Total Transaksi</div><div class="kpi-value">142</div></div>
+        <div class="card kpi-card"><div class="kpi-label">Total Pemasukan</div><div class="kpi-value" style="color:var(--color-success)">Rp 32.500.000</div></div>
+        <div class="card kpi-card"><div class="kpi-label">Total Pengeluaran</div><div class="kpi-value" style="color:var(--color-danger)">Rp 18.750.000</div></div>
+      </div>
+
+      <div class="card" style="margin-bottom:16px;">
+        <div style="display:flex; gap:12px; flex-wrap:wrap;">
+          <select class="form-control" style="max-width:170px;">
+            <option>Semua Tipe</option>
+            <option>Pemasukan</option>
+            <option>Pengeluaran</option>
+            <option>Transfer</option>
+          </select>
+          <select class="form-control" style="max-width:180px;">
+            <option>Semua Kategori</option>
+            <option>Penjualan</option>
+            <option>Operasional</option>
+            <option>Transportasi</option>
+          </select>
+          <select class="form-control" style="max-width:190px;">
+            <option>Semua Akun</option>
+            <option>BCA - Giro Operasional</option>
+            <option>Kas Tunai</option>
+            <option>Mandiri - Giro Payroll</option>
+          </select>
+          <button class="btn btn-secondary">Terapkan Filter</button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th><input type="checkbox"></th>
+              <th>ID Transaksi</th>
+              <th>Tanggal</th>
+              <th>Keterangan</th>
+              <th>Kategori</th>
+              <th>Akun / Rekening</th>
+              <th style="text-align:right;">Jumlah</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="txTableBody"></tbody>
+        </table>
+      </div>
+
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:16px; font-size:13px; color:var(--color-text-muted);">
+        <span>Menampilkan 1-5 dari 142 transaksi</span>
+        <div style="display:flex; gap:6px;">
+          <button class="btn btn-secondary" style="padding:6px 12px;">‹ Sebelumnya</button>
+          <button class="btn btn-secondary" style="padding:6px 12px;">Selanjutnya ›</button>
+        </div>
+      </div>
+    </main>
+
+    <footer class="footer">&copy; 2026 FinTrack Indonesia. Hak Cipta Dilindungi.</footer>
+  </div>
+
+  <script src="../assets/js/mock-data.js"></script>
+  <script src="../assets/js/main.js"></script>
+  <script>
+    const tbody = document.getElementById('txTableBody');
+    const typeBadge = { pemasukan: 'badge-income', pengeluaran: 'badge-expense', transfer: 'badge-transfer' };
+    MOCK_TRANSACTIONS.forEach(tx => {
+      const tr = document.createElement('tr');
+      const sign = tx.type === 'pengeluaran' ? '-' : '+';
+      const color = tx.type === 'pengeluaran' ? 'var(--color-danger)' : 'var(--color-success)';
+      tr.innerHTML = `
+        <td><input type="checkbox"></td>
+        <td>${tx.id}</td>
+        <td>${formatTanggal(tx.date)}</td>
+        <td>${tx.desc}</td>
+        <td><span class="badge ${typeBadge[tx.type]}">${tx.category}</span></td>
+        <td>${tx.account}</td>
+        <td style="text-align:right; color:${color}; font-weight:600;">${sign} ${formatRupiah(tx.amount)}</td>
+        <td>
+          <button class="btn btn-ghost" style="padding:6px;">✏️</button>
+          <button class="btn btn-ghost" style="padding:6px;">🗑️</button>
+        </td>`;
+      tbody.appendChild(tr);
+    });
+  </script>
+</body>
+</html>
